@@ -7,11 +7,18 @@ import lombok.ToString;
 import javax.validation.constraints.NotBlank;
 
 @Getter
-@Setter
 @ToString
 public class MemberCreate {
 
     @NotBlank
     private String name;
+
+    @NotBlank
+    private String password;
+
+    public MemberCreate(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 
 }
