@@ -22,13 +22,19 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Member join(MemberCreate memberCreate) {
+    public MemberResponse join(MemberCreate memberCreate) {
         Member member = Member.builder()
+                .username(memberCreate.getUsername())
                 .name(memberCreate.getName())
                 .password(memberCreate.getPassword())
                 .build();
 
-        return memberRepository.save(member);
+        Member savedMember = memberRepository.save(member);
+        return MemberResponse.builder()
+                .id(savedMember.getId())
+                .username(savedMember.getUsername())
+                .name(savedMember.getName())
+                .build();
     }
 
     public MemberResponse findOne(Long memberId) {

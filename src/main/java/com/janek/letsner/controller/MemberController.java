@@ -2,6 +2,7 @@ package com.janek.letsner.controller;
 
 import com.janek.letsner.domain.Member;
 import com.janek.letsner.request.MemberCreate;
+import com.janek.letsner.response.MemberResponse;
 import com.janek.letsner.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/member")
-    public Member join(MemberCreate memberCreate) {
+    public MemberResponse join(MemberCreate memberCreate) {
         return memberService.join(memberCreate);
     }
 

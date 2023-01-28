@@ -41,13 +41,13 @@ class MemberServiceTest {
     @DisplayName("회원 가입")
     void joinTest() {
         // given
-        MemberCreate memberCreate = new MemberCreate("회원1", "1234");
+        MemberCreate memberCreate = new MemberCreate("member1", "회원1", "1234");
 
         // when
-        Member member = memberService.join(memberCreate);
+        MemberResponse response = memberService.join(memberCreate);
 
         // then
-        MemberResponse memberResponse = memberService.findOne(member.getId());
+        MemberResponse memberResponse = memberService.findOne(response.getId());
 
         assertThat(memberRepository.count()).isEqualTo(1L);
         assertThat(memberResponse.getId()).isEqualTo(1L);
@@ -59,7 +59,7 @@ class MemberServiceTest {
     void findAllTest() {
         // given
         for (int i = 1 ; i <= 10 ; i++) {
-            MemberCreate memberCreate = new MemberCreate("회원" + i, "1234" + i);
+            MemberCreate memberCreate = new MemberCreate("member" + i,"회원" + i, "1234" + i);
             memberService.join(memberCreate);
         }
 

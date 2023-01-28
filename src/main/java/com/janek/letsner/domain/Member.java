@@ -20,19 +20,16 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    private String username;
+
     private String name;
 
     private String password;
 
-    @OneToMany(mappedBy = "member")
-    private List<Student> students = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private List<LessonSchedule> schedules = new ArrayList<>();
-
     @Builder
-    public Member(Long id, String name, String password) {
+    public Member(Long id, String username, String name, String password) {
         this.id = id;
+        this.username = username;
         this.name = name;
         this.password = password;
     }

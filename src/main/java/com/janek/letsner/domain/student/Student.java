@@ -2,7 +2,9 @@ package com.janek.letsner.domain.student;
 
 import com.janek.letsner.domain.Member;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +14,7 @@ import java.time.LocalDate;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DiscriminatorColumn(name = "student_type")
+@ToString
 public abstract class Student {
 
     @Id @GeneratedValue
@@ -38,4 +41,15 @@ public abstract class Student {
     @Enumerated(EnumType.STRING)
     private RegistrationStatus registrationStatus;
 
+    public Student(Long id, String name, LocalDate birth, PeriodType periodType, int pricePerPeriod, Member member, LocalDate registrationDate, LocalDate registrationEndDate, RegistrationStatus registrationStatus) {
+        this.id = id;
+        this.name = name;
+        this.birth = birth;
+        this.periodType = periodType;
+        this.pricePerPeriod = pricePerPeriod;
+        this.member = member;
+        this.registrationDate = registrationDate;
+        this.registrationEndDate = registrationEndDate;
+        this.registrationStatus = registrationStatus;
+    }
 }
