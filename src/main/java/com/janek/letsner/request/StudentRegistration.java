@@ -1,14 +1,10 @@
 package com.janek.letsner.request;
 
-import com.janek.letsner.domain.Member;
 import com.janek.letsner.domain.student.PeriodType;
-import com.janek.letsner.domain.student.RegistrationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 

@@ -13,9 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.janek.letsner.domain.student.RegistrationStatus.REGISTRATION;
-import static java.time.LocalDate.now;
-
 @Slf4j
 @Service
 @Transactional(readOnly = true)
@@ -33,25 +30,9 @@ public class StudentService {
         Student student;
 
         if (registration.getAcademyId() != null) {
-            student = AcademyStudent.builder()
-                    .member(findMember)
-                    .name(registration.getName())
-                    .birth(registration.getBirth())
-                    .periodType(registration.getPeriodType())
-                    .pricePerPeriod(registration.getPricePerPeriod())
-                    .registrationStatus(REGISTRATION)
-                    .registrationDate(now())
-                    .build();
+            student = new AcademyStudent(registration, findMember);
         } else {
-            student = IndividualStudent.builder()
-                    .member(findMember)
-                    .name(registration.getName())
-                    .birth(registration.getBirth())
-                    .periodType(registration.getPeriodType())
-                    .pricePerPeriod(registration.getPricePerPeriod())
-                    .registrationStatus(REGISTRATION)
-                    .registrationDate(now())
-                    .build();
+            student = new IndividualStudent(registration, findMember);
         }
 
         return studentRepository.save(student);

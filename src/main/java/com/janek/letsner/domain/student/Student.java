@@ -1,20 +1,22 @@
 package com.janek.letsner.domain.student;
 
 import com.janek.letsner.domain.Member;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.janek.letsner.request.StudentRegistration;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
+import static com.janek.letsner.domain.student.RegistrationStatus.*;
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DiscriminatorColumn(name = "student_type")
+@AllArgsConstructor
 @ToString
+@Getter
 public abstract class Student {
 
     @Id @GeneratedValue
@@ -41,15 +43,14 @@ public abstract class Student {
     @Enumerated(EnumType.STRING)
     private RegistrationStatus registrationStatus;
 
-    public Student(Long id, String name, LocalDate birth, PeriodType periodType, int pricePerPeriod, Member member, LocalDate registrationDate, LocalDate registrationEndDate, RegistrationStatus registrationStatus) {
-        this.id = id;
-        this.name = name;
-        this.birth = birth;
-        this.periodType = periodType;
-        this.pricePerPeriod = pricePerPeriod;
+    public Student(StudentRegistration registration, Member member) {
+        this.name = registration.getName();
+        this.birth = registration.getBirth();
+        this.periodType = registration.getPeriodType();
+        this.pricePerPeriod = registration.getPricePerPeriod();
         this.member = member;
-        this.registrationDate = registrationDate;
-        this.registrationEndDate = registrationEndDate;
-        this.registrationStatus = registrationStatus;
+        this.registrationDate = LocalDate.now();
+        this.registrationStatus = REGISTRATION;
     }
+
 }

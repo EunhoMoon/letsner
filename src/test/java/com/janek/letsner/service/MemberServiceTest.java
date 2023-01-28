@@ -1,6 +1,5 @@
 package com.janek.letsner.service;
 
-import com.janek.letsner.domain.Member;
 import com.janek.letsner.exception.MemberNotFoundException;
 import com.janek.letsner.repository.MemberRepository;
 import com.janek.letsner.request.MemberCreate;
