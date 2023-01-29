@@ -23,6 +23,7 @@ public class MemberService {
 
     @Transactional
     public MemberResponse join(MemberCreate memberCreate) {
+        log.info("memberCreate={}", memberCreate);
         Member member = Member.builder()
                 .username(memberCreate.getUsername())
                 .name(memberCreate.getName())
@@ -30,6 +31,7 @@ public class MemberService {
                 .build();
 
         Member savedMember = memberRepository.save(member);
+        log.info("savedMember={}", member);
         return MemberResponse.builder()
                 .id(savedMember.getId())
                 .username(savedMember.getUsername())

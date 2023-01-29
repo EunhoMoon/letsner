@@ -23,6 +23,7 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
+    @Transactional
     public Student registration(StudentRegistration registration) {
         Member findMember = memberRepository.findById(registration.getMemberId())
                 .orElseThrow(MemberNotFoundException::new);
