@@ -1,5 +1,6 @@
 package com.janek.letsner.service;
 
+import com.janek.letsner.domain.Academy;
 import com.janek.letsner.domain.Member;
 import com.janek.letsner.domain.student.AcademyStudent;
 import com.janek.letsner.domain.student.IndividualStudent;
@@ -51,11 +52,14 @@ class StudentServiceTest {
 
         em.persist(member);
 
-        StudentRegistration registration = new StudentRegistration("테스트", LocalDate.of(1992, 1, 28), PeriodType.FOUR_WEEK, 30000, member.getId(), 1L);
+        Academy academy = new Academy("학원1");
+        em.persist(academy);
+
+        StudentRegistration registration = new StudentRegistration("테스트", LocalDate.of(1992, 1, 28), PeriodType.FOUR_WEEK, 30000, member.getId(), academy.getId());
         Student regStudent = studentService.registration(registration);
 
         assertEquals(regStudent.getName(), "테스트");
-        assertEquals(registration.getAcademyId(), 1L);
+        assertEquals(registration.getAcademyId(), academy.getId());
         assertEquals(regStudent.getMember().getUsername(), "test");
         assertEquals(regStudent.getClass(), AcademyStudent.class);
         assertNotEquals(regStudent.getClass(), IndividualStudent.class);

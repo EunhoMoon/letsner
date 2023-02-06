@@ -26,8 +26,9 @@ public class AcademyStudent extends Student {
         this.academy = academy;
     }
 
-    public AcademyStudent(StudentRegistration registration, Member member) {
+    public AcademyStudent(StudentRegistration registration, Member member, Academy academy) {
         super(registration, member);
+        setAcademy(academy);
     }
 
 }
