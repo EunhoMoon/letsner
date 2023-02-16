@@ -1,8 +1,8 @@
 package com.janek.letsner.controller;
 
-import com.janek.letsner.request.MemberCreate;
-import com.janek.letsner.response.MemberResponse;
-import com.janek.letsner.service.MemberService;
+import com.janek.letsner.domain.member.request.MemberCreate;
+import com.janek.letsner.domain.member.response.MemberResponse;
+import com.janek.letsner.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +16,8 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/member")
-    public MemberResponse join(@RequestBody  MemberCreate memberCreate) {
+    @PostMapping("/user")
+    public MemberResponse join(@RequestBody MemberCreate memberCreate) {
         return memberService.join(memberCreate);
     }
 
