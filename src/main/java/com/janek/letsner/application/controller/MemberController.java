@@ -1,4 +1,4 @@
-package com.janek.letsner.controller;
+package com.janek.letsner.application.controller;
 
 import com.janek.letsner.domain.member.request.MemberCreate;
 import com.janek.letsner.domain.member.response.MemberResponse;
