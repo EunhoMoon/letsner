@@ -1,5 +1,6 @@
 package com.janek.letsner.application.controller;
 
+import com.janek.letsner.application.service.MembersStudentUseCase;
 import com.janek.letsner.domain.student.entity.Student;
 import com.janek.letsner.domain.student.request.StudentRegistration;
 import com.janek.letsner.domain.student.service.StudentService;
@@ -16,9 +17,11 @@ public class StudentController {
 
     private final StudentService studentService;
 
+    private final MembersStudentUseCase membersStudentUseCase;
+
     @PostMapping("/registration")
     public Student registration(@RequestBody StudentRegistration registration ) {
-        return studentService.registration(registration);
+        return membersStudentUseCase.registration(registration);
     }
 
 }

@@ -3,7 +3,6 @@ package com.janek.letsner.domain.member.service;
 import com.janek.letsner.domain.member.repository.MemberRepository;
 import com.janek.letsner.domain.member.request.MemberCreate;
 import com.janek.letsner.domain.member.response.MemberResponse;
-import com.janek.letsner.domain.member.service.MemberService;
 import com.janek.letsner.exception.MemberNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
