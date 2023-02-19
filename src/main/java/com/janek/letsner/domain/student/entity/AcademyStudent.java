@@ -11,6 +11,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -27,7 +28,11 @@ public class AcademyStudent extends Student {
     }
 
     public AcademyStudent(StudentRegistration registration, Member user, Academy academy) {
-        super(registration, user);
+        this(registration, user, academy, null);
+    }
+
+    public AcademyStudent(StudentRegistration registration, Member user, Academy academy, LocalDate createDate) {
+        super(registration, user, createDate);
         setAcademy(academy);
     }
 

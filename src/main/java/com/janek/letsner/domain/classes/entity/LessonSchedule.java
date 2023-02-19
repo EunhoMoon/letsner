@@ -5,6 +5,8 @@ import com.janek.letsner.domain.member.entity.Member;
 import com.janek.letsner.domain.student.entity.Student;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
@@ -23,8 +25,7 @@ public class LessonSchedule {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @Enumerated(EnumType.STRING)
-    private LessonDay lessonDate;
+    private LocalDate lessonDate;
     private LocalTime lessonTime;
 
 }

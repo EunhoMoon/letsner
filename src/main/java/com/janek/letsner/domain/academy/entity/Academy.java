@@ -1,18 +1,20 @@
 package com.janek.letsner.domain.academy.entity;
 
+import com.janek.letsner.domain.BaseEntity;
 import com.janek.letsner.domain.student.entity.AcademyStudent;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Academy {
+public class Academy extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -26,6 +28,11 @@ public class Academy {
     private List<AcademyStudent> students = new ArrayList<>();
 
     public Academy(String name) {
+        this(name, null);
+    }
+
+    public Academy(String name, LocalDate createdDate) {
+        super(createdDate);
         this.name = name;
     }
 

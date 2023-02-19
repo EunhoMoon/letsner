@@ -7,8 +7,10 @@ import com.janek.letsner.domain.student.entity.AcademyStudent;
 import com.janek.letsner.domain.student.entity.IndividualStudent;
 import com.janek.letsner.domain.student.entity.Student;
 import com.janek.letsner.domain.student.request.StudentRegistration;
+import com.janek.letsner.exception.AcademyNotFoundException;
 import com.janek.letsner.exception.MemberNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +34,34 @@ class MembersStudentUseCaseTest {
     @Autowired
     MembersStudentUseCase membersStudentUseCase;
 
+    @AfterEach
+    void deleteAll() {
+        em.clear();
+    }
+
     @Test
     @DisplayName("학생 등록시 memberId가 없으면 MemberNotFoundException 발생")
     void memberNotFoundTest() {
         StudentRegistration registration = new StudentRegistration("테스트", LocalDate.of(1992, 1, 28), PeriodType.FOUR_WEEK, 30000, 12L, 1L);
 
         assertThrows(MemberNotFoundException.class, () -> membersStudentUseCase.registration(registration));
+    }
+
+    @Test
+    @DisplayName("학원생 등록시 academyId가 없으면 AcademyNotFoundException 발생")
+    void academyNotFoundTest() {
+        //given
+        Member member = Member.builder()
+                .username("test")
+                .password("1234")
+                .name("테스터")
+                .build();
+
+        em.persist(member);
+
+        // expect
+        StudentRegistration registration = new StudentRegistration("테스트", LocalDate.of(1992, 1, 28), PeriodType.FOUR_WEEK, 30000, member.getId(), 2L);
+        assertThrows(AcademyNotFoundException.class, () -> membersStudentUseCase.registration(registration));
     }
 
     @Test

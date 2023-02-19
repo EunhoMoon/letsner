@@ -5,6 +5,7 @@ import com.janek.letsner.domain.member.request.MemberCreate;
 import com.janek.letsner.domain.member.response.MemberResponse;
 import com.janek.letsner.exception.MemberNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ class MemberServiceTest {
     @Autowired
     private MemberRepository memberRepository;
 
+    @AfterEach
+    void deleteAll() {
+        memberRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("회원 단건 조회 실패시 UserNotFoundException 발생")
@@ -49,7 +54,6 @@ class MemberServiceTest {
         MemberResponse memberResponse = memberService.findOne(response.getId());
 
         assertThat(memberRepository.count()).isEqualTo(1L);
-        assertThat(memberResponse.getId()).isEqualTo(1L);
         assertThat(memberResponse.getName()).isEqualTo("회원1");
     }
 

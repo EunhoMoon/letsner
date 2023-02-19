@@ -9,6 +9,7 @@ import com.janek.letsner.domain.student.entity.IndividualStudent;
 import com.janek.letsner.domain.student.entity.Student;
 import com.janek.letsner.domain.student.request.StudentRegistration;
 import com.janek.letsner.domain.student.service.StudentService;
+import com.janek.letsner.exception.AcademyNotFoundException;
 import com.janek.letsner.exception.MemberNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class MembersStudentUseCase {
         Student student;
 
         if (registration.getAcademyId() != null) {
-            Academy academy = academyRepository.findById(registration.getAcademyId()).orElseThrow(RuntimeException::new);
+            Academy academy = academyRepository.findById(registration.getAcademyId()).orElseThrow(AcademyNotFoundException::new);
             student = new AcademyStudent(registration, findMember, academy);
         } else {
             student = new IndividualStudent(registration, findMember);

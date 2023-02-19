@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @Transactional(readOnly = true)
@@ -17,8 +19,11 @@ public class StudentService {
 
     @Transactional
     public Student registration(Student student) {
-
         return studentRepository.save(student);
+    }
+
+    public List<Student> getStudentList(Long memberId) {
+        return studentRepository.findAllByMemberId(memberId);
     }
 
 }

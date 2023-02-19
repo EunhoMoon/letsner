@@ -1,5 +1,6 @@
 package com.janek.letsner.domain.student.entity;
 
+import com.janek.letsner.domain.BaseEntity;
 import com.janek.letsner.domain.member.entity.Member;
 import com.janek.letsner.domain.student.PeriodType;
 import com.janek.letsner.domain.student.RegistrationStatus;
@@ -19,7 +20,7 @@ import static com.janek.letsner.domain.student.RegistrationStatus.*;
 @AllArgsConstructor
 @ToString
 @Getter
-public abstract class Student {
+public abstract class Student extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "student_id")
@@ -45,7 +46,8 @@ public abstract class Student {
     @Enumerated(EnumType.STRING)
     private RegistrationStatus registrationStatus;
 
-    public Student(StudentRegistration registration, Member member) {
+    public Student(StudentRegistration registration, Member member, LocalDate createdDate) {
+        super(createdDate);
         this.name = registration.getName();
         this.birth = registration.getBirth();
         this.periodType = registration.getPeriodType();
