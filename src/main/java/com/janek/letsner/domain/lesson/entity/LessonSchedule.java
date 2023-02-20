@@ -1,11 +1,9 @@
-package com.janek.letsner.domain.classes.entity;
+package com.janek.letsner.domain.lesson.entity;
 
-import com.janek.letsner.domain.classes.LessonDay;
 import com.janek.letsner.domain.member.entity.Member;
 import com.janek.letsner.domain.student.entity.Student;
 
 import javax.persistence.*;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
