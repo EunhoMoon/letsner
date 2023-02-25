@@ -1,16 +1,14 @@
 package com.janek.letsner.domain.lesson.service;
 
 import com.janek.letsner.domain.lesson.entity.Lesson;
-import com.janek.letsner.domain.lesson.entity.LessonEditor;
 import com.janek.letsner.domain.lesson.repository.LessonRepository;
+import com.janek.letsner.domain.lesson.request.LessonEdit;
+import com.janek.letsner.exception.LessonAlreadyExistException;
+import com.janek.letsner.exception.LessonNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
-
-import static com.janek.letsner.domain.lesson.entity.LessonEditor.*;
 
 @Slf4j
 @Service
@@ -25,22 +23,15 @@ public class LessonService {
         if (lesson.getId() == null) {
             lessonRepository.save(lesson);
         } else {
-            edit(lesson);
+            throw new LessonAlreadyExistException();
         }
     }
 
-    private void edit(Lesson lesson) {
-        Lesson findLesson = lessonRepository.findById(lesson.getId())
-                .orElseThrow(RuntimeException::new);
+    private void edit(Long lessonId, LessonEdit edit) {
+        Lesson findLesson = lessonRepository.findById(lessonId)
+                .orElseThrow(LessonNotFoundException::new);
 
-        LessonEditorBuilder editorBuilder = lesson.toEditor();
-
-        LessonEditor editor = editorBuilder
-                .lessonDate(lesson.getLessonDate())
-                .lessonTime(lesson.getLessonTime())
-                .build();
-
-        findLesson.edit(editor);
+        findLesson.edit(edit);
     }
 
 

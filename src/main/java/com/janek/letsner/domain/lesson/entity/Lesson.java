@@ -1,5 +1,6 @@
 package com.janek.letsner.domain.lesson.entity;
 
+import com.janek.letsner.domain.lesson.request.LessonEdit;
 import com.janek.letsner.domain.member.entity.Member;
 import com.janek.letsner.domain.student.entity.Student;
 import lombok.AccessLevel;
@@ -40,15 +41,9 @@ public class Lesson {
         this.lessonTime = lessonTime;
     }
 
-    public LessonEditor.LessonEditorBuilder toEditor() {
-        return LessonEditor.builder()
-                .lessonDate(this.lessonDate)
-                .lessonTime(this.lessonTime);
-    }
-
-    public void edit(LessonEditor editor) {
-        this.lessonDate = lessonDate;
-        this.lessonTime = lessonTime;
+    public void edit(LessonEdit edit) {
+        this.lessonDate = edit.getLessonDate();
+        this.lessonTime = edit.getLessonTime();
     }
 
 }
