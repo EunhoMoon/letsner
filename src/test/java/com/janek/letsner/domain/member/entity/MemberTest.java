@@ -22,7 +22,7 @@ class MemberTest {
                 .build();
 
         // expect
-        assertEquals(member.getCreatedDate(), LocalDate.parse("2023-02-19"));
+        assertEquals(member.getCreatedDate(), LocalDate.now());
     }
 
     @Test
