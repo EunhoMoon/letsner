@@ -8,3 +8,8 @@
 - Grade
 - JPA, Spring Data JPA, QueryDSL
 - H2(MySQL)
+
+## TODO
+- 레슨 관련 CRUD
+- 학생 레슨 상태 변경
+- 레슨 시간 및 금액 정산 부분
