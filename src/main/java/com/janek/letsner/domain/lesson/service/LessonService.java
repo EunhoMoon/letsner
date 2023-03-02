@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @Transactional(readOnly = true)
@@ -18,16 +20,22 @@ public class LessonService {
 
     private final LessonRepository lessonRepository;
 
+    public Optional<Lesson> getOne(Long lessonId) {
+        return lessonRepository.findById(lessonId);
+    }
+
     @Transactional
     public void save(Lesson lesson) {
-        if (lesson.getId() == null) {
+        long dupCount = lessonRepository.findDuplicatedLesson(lesson);
+        if (dupCount == 0) {
             lessonRepository.save(lesson);
         } else {
             throw new LessonAlreadyExistException();
         }
     }
 
-    private void edit(Long lessonId, LessonEdit edit) {
+    @Transactional
+    public void edit(Long lessonId, LessonEdit edit) {
         Lesson findLesson = lessonRepository.findById(lessonId)
                 .orElseThrow(LessonNotFoundException::new);
 
