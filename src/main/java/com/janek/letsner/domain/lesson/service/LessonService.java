@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -40,6 +42,10 @@ public class LessonService {
                 .orElseThrow(LessonNotFoundException::new);
 
         findLesson.edit(edit);
+    }
+
+    public List<Lesson> getLessonAt(Long memberId, LocalDate from, LocalDate to) {
+        return lessonRepository.findLessonListAt(memberId, from, to);
     }
 
 

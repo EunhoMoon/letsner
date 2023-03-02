@@ -18,12 +18,3 @@ spring:
     hibernate:
       ddl-auto: create
       show-sql: true
-
-
-logging:
-  level:
-    org:
-      hibernate:
-        type:
-          descriptor:
-            sql: trace

@@ -7,7 +7,6 @@ import com.janek.letsner.domain.student.PeriodType;
 import com.janek.letsner.domain.student.RegistrationStatus;
 import com.janek.letsner.domain.student.entity.IndividualStudent;
 import com.janek.letsner.domain.student.entity.Student;
-import com.janek.letsner.domain.student.request.StudentRegistration;
 import com.janek.letsner.exception.LessonAlreadyExistException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,13 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
-@Transactional(readOnly = true)
+@Transactional
 class LessonServiceTest {
     @Autowired
     private LessonRepository lessonRepository;
@@ -61,7 +61,6 @@ class LessonServiceTest {
 
     @Test
     @DisplayName("레슨 정상 등록")
-    @Transactional
     void test() {
         //given
         Member member = em.find(Member.class, 1L);
@@ -86,7 +85,6 @@ class LessonServiceTest {
 
     @Test
     @DisplayName("레슨 일정이 겹치는 레슨이 존재할 경우 LessonAlreadyExistException 발생")
-    @Transactional
     void test2() {
         //given
         Member member = em.find(Member.class, 1L);
@@ -112,6 +110,28 @@ class LessonServiceTest {
            lessonService.save(lesson2);
         });
 
+    }
+
+    @Test
+    @DisplayName("기간 내 레슨 리스트 정상 반환")
+    void test3() {
+        Member member = em.find(Member.class, 1L);
+        Student student = em.find(Student.class, 1L);
+
+        //given
+        IntStream.range(1, 10).forEach(i -> {
+            lessonService.save(Lesson.builder()
+                    .member(member)
+                    .student(student)
+                    .lessonDate(LocalDate.parse(String.format("2023-03-0%s", i)))
+                    .lessonTime(LocalTime.parse("16:00"))
+                    .build());
+        });
+
+        // when
+        List<Lesson> lessonAt = lessonService.getLessonAt(1L, LocalDate.parse("2023-03-03"), LocalDate.parse("2023-03-10"));
+
+        assertEquals(7, lessonAt.size());
     }
 
 }

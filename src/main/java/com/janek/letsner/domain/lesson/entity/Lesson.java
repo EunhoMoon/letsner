@@ -3,10 +3,7 @@ package com.janek.letsner.domain.lesson.entity;
 import com.janek.letsner.domain.lesson.request.LessonEdit;
 import com.janek.letsner.domain.member.entity.Member;
 import com.janek.letsner.domain.student.entity.Student;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,6 +12,7 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @Table(name = "lesson")
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Lesson {
 
