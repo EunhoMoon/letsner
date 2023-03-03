@@ -5,7 +5,7 @@
 ## Spring
 - JDK 13
 - Springboot 2.7.6
-- Grade
+- Gradle
 - JPA, Spring Data JPA, QueryDSL
 - H2(MySQL)
 
