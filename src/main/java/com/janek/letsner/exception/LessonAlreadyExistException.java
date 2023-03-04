@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public class LessonAlreadyExistException extends LetsnerException {
 
-    private static final String MESSAGE = "이미 존재하는 레슨 일정입니다.";
+    private static final String MESSAGE = "해당 시간에 이미 레슨 일정이 존재합니다.";
 
     public LessonAlreadyExistException() {
         super(MESSAGE);

@@ -11,11 +11,13 @@ import java.time.LocalTime;
 @ToString
 public class LessonEdit {
 
+    private final Long lessonId;
     private final LocalDate lessonDate;
     private final LocalTime lessonTime;
 
     @Builder
-    public LessonEdit(LocalDate lessonDate, LocalTime lessonTime) {
+    public LessonEdit(Long lessonId, LocalDate lessonDate, LocalTime lessonTime) {
+        this.lessonId = lessonId;
         this.lessonDate = lessonDate;
         this.lessonTime = lessonTime;
     }

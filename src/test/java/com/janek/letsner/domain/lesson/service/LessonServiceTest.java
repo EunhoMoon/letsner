@@ -2,6 +2,8 @@ package com.janek.letsner.domain.lesson.service;
 
 import com.janek.letsner.domain.lesson.entity.Lesson;
 import com.janek.letsner.domain.lesson.repository.LessonRepository;
+import com.janek.letsner.domain.lesson.request.LessonEdit;
+import com.janek.letsner.domain.lesson.request.LessonPeriodCond;
 import com.janek.letsner.domain.member.entity.Member;
 import com.janek.letsner.domain.student.PeriodType;
 import com.janek.letsner.domain.student.RegistrationStatus;
@@ -113,8 +115,31 @@ class LessonServiceTest {
     }
 
     @Test
-    @DisplayName("기간 내 레슨 리스트 정상 반환")
+    @DisplayName("레슨 수정 성공")
     void test3() {
+        //given
+        Member member = em.find(Member.class, 1L);
+        Student student = em.find(Student.class, 1L);
+        Lesson lesson = Lesson.builder()
+                .member(member)
+                .student(student)
+                .lessonDate(LocalDate.parse("2023-03-02"))
+                .lessonTime(LocalTime.parse("16:00"))
+                .build();
+
+        lessonService.save(lesson);
+
+        // when
+        lessonService.edit(new LessonEdit(lesson.getId(), LocalDate.parse("2023-03-10"), LocalTime.parse("16:00")));
+
+        // then
+        log.info("lesson={}", lesson);
+        assertEquals(lesson.getLessonDate(), LocalDate.parse("2023-03-10"));
+    }
+
+    @Test
+    @DisplayName("기간 내 레슨 리스트 정상 반환")
+    void test4() {
         Member member = em.find(Member.class, 1L);
         Student student = em.find(Student.class, 1L);
 
@@ -129,7 +154,7 @@ class LessonServiceTest {
         });
 
         // when
-        List<Lesson> lessonAt = lessonService.getLessonAt(1L, LocalDate.parse("2023-03-03"), LocalDate.parse("2023-03-10"));
+        List<Lesson> lessonAt = lessonService.getLessonAt(new LessonPeriodCond(1L, LocalDate.parse("2023-03-03"), LocalDate.parse("2023-03-10")));
 
         assertEquals(7, lessonAt.size());
     }
