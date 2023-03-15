@@ -12,6 +12,6 @@
 ## TODO
 - 레슨 관련 CRUD
 - 학생 레슨 상태 변경
-- 레슨 시간 및 금액 정산 부분
+- 레슨 시간(체크시 기간 만큼 ) 및 금액 정산 부분
 - api 테스트
-- vue를 이용해 frontend 구축
+- React native를 이용해 frontend 구축
