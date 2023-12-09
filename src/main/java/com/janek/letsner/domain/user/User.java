@@ -17,6 +17,7 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, name = "user_token")
     private String token;
 
     private String username;

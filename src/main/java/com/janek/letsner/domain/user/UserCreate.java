@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public class UserCreate {
 
-    private static final String PREFIX_USER = "user";
+    private static final String PREFIX_USER = "USER";
 
     private final String userToken;
 
