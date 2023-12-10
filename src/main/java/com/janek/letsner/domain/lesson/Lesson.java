@@ -44,4 +44,12 @@ public class Lesson extends BaseEntity {
         this.user = user;
     }
 
+    public void updateStartAt(ZonedDateTime newStartAt) {
+        this.startedAt = newStartAt;
+    }
+
+    public void updateEndAt(ZonedDateTime newEndAt) {
+        this.endAt = newEndAt;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.janek.letsner.domain.user;
 
+import com.janek.letsner.common.exceptions.UserNotFoundException;
 import com.janek.letsner.infrastructure.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,11 @@ public class UserService {
         var newUser = userCreate.toUser();
 
         userRepository.save(newUser);
+    }
+
+    public User getUserByToken(String token) {
+        return userRepository.findUserByToken(token)
+            .orElseThrow(UserNotFoundException::new);
     }
 
 }
