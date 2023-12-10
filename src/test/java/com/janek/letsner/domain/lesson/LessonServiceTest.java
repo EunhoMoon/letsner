@@ -3,7 +3,7 @@ package com.janek.letsner.domain.lesson;
 import com.janek.letsner.common.exceptions.ItemNotFoundException;
 import com.janek.letsner.domain.user.User;
 import com.janek.letsner.domain.user.UserCreate;
-import com.janek.letsner.infrastructure.user.LessonRepository;
+import com.janek.letsner.infrastructure.lesson.LessonRepository;
 import com.janek.letsner.infrastructure.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -81,6 +81,23 @@ class LessonServiceTest {
 
         // expect
         assertThrows(ItemNotFoundException.class, () -> lessonService.deleteLessonByToken(lessonToken));
+    }
+
+    @Test
+    @DisplayName("succeeds when getting lesson list by user token")
+    void getLessonsByUserToken() {
+        // given
+        var newUser = initUser();
+        var newLesson = new LessonCreate(ZonedDateTime.now(), ZonedDateTime.now()).toLesson(newUser);
+        var newLesson2 = new LessonCreate(ZonedDateTime.now(), ZonedDateTime.now()).toLesson(newUser);
+        lessonRepository.save(newLesson);
+        lessonRepository.save(newLesson2);
+
+        // when
+        var findLessons = lessonService.getLessonsByUserToken(newUser.getToken());
+
+        // then
+        assertEquals(2, findLessons.size());
     }
 
 }
