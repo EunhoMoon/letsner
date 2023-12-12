@@ -1,9 +1,12 @@
 package com.janek.letsner.domain.schedule;
 
 import com.janek.letsner.common.baseobject.BaseEntity;
+import com.janek.letsner.domain.lesson.Lesson;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.ZonedDateTime;
 
 @Getter
 @Entity
@@ -14,5 +17,13 @@ public class Schedule extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "lesson_id")
+    private Lesson lesson;
+
+    private ZonedDateTime startedAt;
+
+    private ZonedDateTime endAt;
 
 }

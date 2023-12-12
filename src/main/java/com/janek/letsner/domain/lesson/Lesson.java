@@ -23,10 +23,6 @@ public class Lesson extends BaseEntity {
     @Column(unique = true, name = "lesson_token")
     private String token;
 
-    private ZonedDateTime startedAt;
-
-    private ZonedDateTime endAt;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -34,22 +30,10 @@ public class Lesson extends BaseEntity {
     @Builder
     private Lesson(
         String token,
-        ZonedDateTime startedAt,
-        ZonedDateTime endAt,
         User user
     ) {
         this.token = token;
-        this.startedAt = startedAt;
-        this.endAt = endAt;
         this.user = user;
-    }
-
-    public void updateStartAt(ZonedDateTime newStartAt) {
-        this.startedAt = newStartAt;
-    }
-
-    public void updateEndAt(ZonedDateTime newEndAt) {
-        this.endAt = newEndAt;
     }
 
 }

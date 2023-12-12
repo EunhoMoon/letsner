@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.ZonedDateTime;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,7 +37,7 @@ class LessonServiceTest {
 
     Lesson initLesson() {
         var newUser = initUser();
-        var newLesson = new LessonCreate(ZonedDateTime.now(), ZonedDateTime.now()).toLesson(newUser);
+        var newLesson = new LessonCreate().toLesson(newUser);
         lessonRepository.save(newLesson);
 
         return newLesson;
@@ -49,7 +48,7 @@ class LessonServiceTest {
     void createNewLesson() {
         // given
         var newUser = initUser();
-        var newLesson = new LessonCreate(ZonedDateTime.now(), ZonedDateTime.now()).toLesson(newUser);
+        var newLesson = new LessonCreate().toLesson(newUser);
 
         // when
         lessonService.createNewLesson(newLesson);
@@ -88,8 +87,8 @@ class LessonServiceTest {
     void getLessonsByUserToken() {
         // given
         var newUser = initUser();
-        var newLesson = new LessonCreate(ZonedDateTime.now(), ZonedDateTime.now()).toLesson(newUser);
-        var newLesson2 = new LessonCreate(ZonedDateTime.now(), ZonedDateTime.now()).toLesson(newUser);
+        var newLesson = new LessonCreate().toLesson(newUser);
+        var newLesson2 = new LessonCreate().toLesson(newUser);
         lessonRepository.save(newLesson);
         lessonRepository.save(newLesson2);
 
