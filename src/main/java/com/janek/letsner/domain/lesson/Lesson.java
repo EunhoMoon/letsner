@@ -1,6 +1,7 @@
 package com.janek.letsner.domain.lesson;
 
 import com.janek.letsner.common.baseobject.BaseEntity;
+import com.janek.letsner.domain.student.Student;
 import com.janek.letsner.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -26,6 +27,10 @@ public class Lesson extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     @Builder
     private Lesson(

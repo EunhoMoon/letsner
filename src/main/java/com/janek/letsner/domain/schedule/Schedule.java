@@ -2,6 +2,7 @@ package com.janek.letsner.domain.schedule;
 
 import com.janek.letsner.common.baseobject.BaseEntity;
 import com.janek.letsner.domain.lesson.Lesson;
+import com.janek.letsner.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,10 @@ public class Schedule extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "lesson_id")
