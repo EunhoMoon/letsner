@@ -32,6 +32,12 @@ public class Lesson extends BaseEntity {
     @JoinColumn(name = "student_id")
     private Student student;
 
+    @Enumerated(EnumType.STRING)
+    private LessonKind kind;
+
+    @Enumerated(EnumType.STRING)
+    private LessonType type;
+
     @Builder
     private Lesson(
         String token,

@@ -37,7 +37,11 @@ class LessonServiceTest {
 
     Lesson initLesson() {
         var newUser = initUser();
-        var newLesson = new LessonCreate().toLesson(newUser);
+        var newLesson = LessonCreate.builder()
+            .kind(LessonKind.PRIVATE)
+            .type(LessonType.REGULAR)
+            .build()
+            .toLesson(newUser);
         lessonRepository.save(newLesson);
 
         return newLesson;
@@ -48,7 +52,11 @@ class LessonServiceTest {
     void createNewLesson() {
         // given
         var newUser = initUser();
-        var newLesson = new LessonCreate().toLesson(newUser);
+        var newLesson = LessonCreate.builder()
+            .kind(LessonKind.PRIVATE)
+            .type(LessonType.REGULAR)
+            .build()
+            .toLesson(newUser);
 
         // when
         lessonService.createNewLesson(newLesson);
@@ -87,8 +95,16 @@ class LessonServiceTest {
     void getLessonsByUserToken() {
         // given
         var newUser = initUser();
-        var newLesson = new LessonCreate().toLesson(newUser);
-        var newLesson2 = new LessonCreate().toLesson(newUser);
+        var newLesson = LessonCreate.builder()
+            .kind(LessonKind.PRIVATE)
+            .type(LessonType.REGULAR)
+            .build()
+            .toLesson(newUser);
+        var newLesson2 = LessonCreate.builder()
+            .kind(LessonKind.ACADEMY)
+            .type(LessonType.REGULAR)
+            .build()
+            .toLesson(newUser);
         lessonRepository.save(newLesson);
         lessonRepository.save(newLesson2);
 
