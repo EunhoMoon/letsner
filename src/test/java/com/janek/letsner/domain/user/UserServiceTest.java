@@ -1,5 +1,6 @@
 package com.janek.letsner.domain.user;
 
+import com.janek.letsner.api.user.UserDto;
 import com.janek.letsner.common.exceptions.UserNotFoundException;
 import com.janek.letsner.infrastructure.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -26,13 +27,13 @@ class UserServiceTest {
     @DisplayName("succeeds create new user")
     void userCreateTest() {
         // given
-        var userCreate = new UserCreate("test@co.kr", "test1234");
+        var userCreate = new UserDto.Create("test@co.kr", "test1234");
 
         // when
-        userService.signup(userCreate);
+        var signupUser = userService.signup(userCreate);
 
         // then
-        var findUser = userRepository.findUserByToken(userCreate.getUserToken());
+        var findUser = userRepository.findUserByToken(signupUser.getToken());
         assertTrue(findUser.isPresent());
         assertEquals("test@co.kr", findUser.get().getUsername());
     }

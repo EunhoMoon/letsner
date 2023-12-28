@@ -1,8 +1,8 @@
 package com.janek.letsner.domain.lesson;
 
+import com.janek.letsner.api.user.UserDto;
 import com.janek.letsner.common.exceptions.ItemNotFoundException;
 import com.janek.letsner.domain.user.User;
-import com.janek.letsner.domain.user.UserCreate;
 import com.janek.letsner.infrastructure.lesson.LessonRepository;
 import com.janek.letsner.infrastructure.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +29,8 @@ class LessonServiceTest {
     LessonRepository lessonRepository;
 
     User initUser() {
-        var newUser = new UserCreate("test@co.kr", "test1234").toUser();
+        var userCreate = new UserDto.Create("test@co.kr", "test1234");
+        var newUser = userCreate.toUser(userCreate.password());
         userRepository.save(newUser);
 
         return newUser;
