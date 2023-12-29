@@ -1,5 +1,6 @@
 package com.janek.letsner.domain.lesson;
 
+import com.janek.letsner.api.lesson.LessonDto;
 import com.janek.letsner.api.user.UserDto;
 import com.janek.letsner.common.exceptions.ItemNotFoundException;
 import com.janek.letsner.domain.user.User;
@@ -38,10 +39,7 @@ class LessonServiceTest {
 
     Lesson initLesson() {
         var newUser = initUser();
-        var newLesson = LessonCreate.builder()
-            .kind(LessonKind.PRIVATE)
-            .type(LessonType.REGULAR)
-            .build()
+        var newLesson = new LessonDto.Create(LessonKind.PRIVATE, LessonType.REGULAR)
             .toLesson(newUser);
         lessonRepository.save(newLesson);
 
@@ -53,10 +51,7 @@ class LessonServiceTest {
     void createNewLesson() {
         // given
         var newUser = initUser();
-        var newLesson = LessonCreate.builder()
-            .kind(LessonKind.PRIVATE)
-            .type(LessonType.REGULAR)
-            .build()
+        var newLesson = new LessonDto.Create(LessonKind.PRIVATE, LessonType.REGULAR)
             .toLesson(newUser);
 
         // when
@@ -96,15 +91,9 @@ class LessonServiceTest {
     void getLessonsByUserToken() {
         // given
         var newUser = initUser();
-        var newLesson = LessonCreate.builder()
-            .kind(LessonKind.PRIVATE)
-            .type(LessonType.REGULAR)
-            .build()
+        var newLesson = new LessonDto.Create(LessonKind.PRIVATE, LessonType.REGULAR)
             .toLesson(newUser);
-        var newLesson2 = LessonCreate.builder()
-            .kind(LessonKind.ACADEMY)
-            .type(LessonType.REGULAR)
-            .build()
+        var newLesson2 = new LessonDto.Create(LessonKind.ACADEMY, LessonType.REGULAR)
             .toLesson(newUser);
         lessonRepository.save(newLesson);
         lessonRepository.save(newLesson2);
