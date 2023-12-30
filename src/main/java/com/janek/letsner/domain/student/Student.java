@@ -20,4 +20,6 @@ public class Student extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private String name;
+
 }
