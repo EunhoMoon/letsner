@@ -10,7 +10,7 @@ class TokenGeneratorTest {
     @Test
     @DisplayName("succeed generate random token with prefix")
     void tokenGenerateTest() {
-        var token = TokenGenerator.randomCharacterWithPrefix("test");
+        var token = TokenGenerator.getTokenWithPrefix("test");
 
         assertTrue(token.startsWith("test_"));
     }

@@ -1,6 +1,7 @@
 package com.janek.letsner.domain.lesson;
 
 import com.janek.letsner.common.baseobject.BaseEntity;
+import com.janek.letsner.common.utils.TokenGenerator;
 import com.janek.letsner.domain.student.Student;
 import com.janek.letsner.domain.user.User;
 import jakarta.persistence.*;
@@ -16,6 +17,8 @@ import java.time.ZonedDateTime;
 @Table(name = "lessons")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Lesson extends BaseEntity {
+
+    private static final String PREFIX_LESSON = "LESSON";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +43,9 @@ public class Lesson extends BaseEntity {
 
     @Builder
     private Lesson(
-        String token,
         User user
     ) {
-        this.token = token;
+        this.token = TokenGenerator.getTokenWithPrefix(PREFIX_LESSON);
         this.user = user;
     }
 

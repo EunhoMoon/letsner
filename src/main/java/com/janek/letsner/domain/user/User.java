@@ -1,6 +1,7 @@
 package com.janek.letsner.domain.user;
 
 import com.janek.letsner.common.baseobject.BaseEntity;
+import com.janek.letsner.common.utils.TokenGenerator;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,6 +13,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity {
+
+    private static final String PREFIX_USER = "USER";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +29,10 @@ public class User extends BaseEntity {
 
     @Builder
     private User(
-        String token,
         String username,
         String encodedPassword
     ) {
-        this.token = token;
+        this.token = TokenGenerator.getTokenWithPrefix(PREFIX_USER);
         this.username = username;
         this.encodedPassword = encodedPassword;
     }
